@@ -1,1 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-id="th-modified">Sophie Marchand — AI Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFF8F8;
+    --text: #1F0A0D;
+    --accent: #BE185D;
+    --card: #FFF1F2;
+    --accent-light: #FCE7F3;
+    --accent-muted: #F9A8D4;
+    --border: #FBCFE8;
+    --text-muted: #7C3E54;
+    --shadow: rgba(190,24,93,0.12);
+  }
 
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Mulish', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── Animations ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes haloFloat {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50%       { transform: scale(1.04) rotate(2deg); }
+  }
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  .fade-in { animation: fadeUp 0.7s ease both; }
+  .fade-in-1 { animation-delay: 0.1s; }
+  .fade-in-2 { animation-delay: 0.22s; }
+  .fade-in-3 { animation-delay: 0.36s; }
+  .fade-in-4 { animation-delay: 0.50s; }
+  .fade-in-5 { animation-delay: 0.64s; }
+
+  /* ── Nav ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw;
+    height: 64px;
+    background: rgba(255,248,248,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Mulish', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta {
+    background: var(--accent);
+    color: #fff !important;
+    padding: 0.4rem 1.1rem;
+    border-radius: 100px;
+  }
+  .nav-cta:hover { background: #9d1454 !important; color: #fff !important; }
+
+  /* ── Layout helpers ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 5vw; }
+  section { padding: 90px 0; }
+
+  .section-label {
+    font-family: 'Mulish', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+  .section-heading {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 1.4rem;
+  }
+
+  /* ── Hero ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding-top: 64px;
+    background: linear-gradient(135deg, #FFF8F8 60%, #FDE8F0 100%);
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    width: 100%;
+  }
+  .hero-left {}
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 0.35rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 1.4rem;
+  }
+  .hero-name {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.8rem, 6vw, 4.2rem);
+    font-weight: 700;
+    line-height: 1.08;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-title {
+    font-family: 'Mulish', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 1.1rem;
+    letter-spacing: 0.02em;
+  }
+  .hero-bio {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 440px;
+    margin-bottom: 2rem;
+    line-height: 1.75;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--accent);
+    color: #fff;
+    font-family: 'Mulish', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 0.75rem 1.75rem;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 4px 18px var(--shadow);
+  }
+  .btn-primary:hover { background: #9d1454; transform: translateY(-2px); }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    border: 1.5px solid var(--accent);
+    color: var(--accent);
+    font-family: 'Mulish', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 0.75rem 1.75rem;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { background: var(--accent); color: #fff; transform: translateY(-2px); }
+
+  /* Photo frame */
+  .hero-right {
+    display: flex; justify-content: center; align-items: center;
+    position: relative;
+  }
+  .photo-halo {
+    position: absolute;
+    width: 380px; height: 380px;
+    background: radial-gradient(circle, rgba(190,24,93,0.22) 0%, rgba(253,232,240,0.5) 55%, transparent 75%);
+    border-radius: 50%;
+    animation: haloFloat 6s ease-in-out infinite;
+    z-index: 0;
+  }
+  .photo-frame {
+    position: relative; z-index: 1;
+    width: 320px; height: 380px;
+    border-radius: 160px 160px 120px 120px;
+    overflow: hidden;
+    box-shadow:
+      0 2px 0 4px var(--border),
+      0 8px 0 8px rgba(190,24,93,0.12),
+      0 20px 60px rgba(190,24,93,0.2);
+  }
+  .photo-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+  .photo-badge {
+    position: absolute; bottom: -12px; right: -12px; z-index: 2;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    letter-spacing: 0.06em;
+    box-shadow: 0 4px 14px var(--shadow);
+  }
+
+  /* ── About ── */
+  #about { background: var(--bg); }
+  .about-text {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 680px;
+    margin-bottom: 3rem;
+    line-height: 1.85;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+  }
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem 1.25rem;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .stat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px var(--shadow); }
+  .stat-number {
+    font-family: 'Fraunces', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .stat-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* ── Projects ── */
+  #projects { background: linear-gradient(180deg, var(--bg) 0%, var(--accent-light) 100%); }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.6rem;
+  }
+  .project-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    display: flex; flex-direction: column; gap: 1rem;
+    transition: transform 0.22s, box-shadow 0.22s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-muted));
+  }
+  .project-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px var(--shadow); }
+  .project-number {
+    font-family: 'Fraunces', serif;
+    font-size: 0.8rem;
+    color: var(--accent-muted);
+    font-weight: 400;
+    letter-spacing: 0.08em;
+  }
+  .project-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .project-row { display: flex; flex-direction: column; gap: 0.25rem; }
+  .project-row-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .project-row-text {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+  .project-tools {
+    display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.4rem;
+  }
+  .tool-chip {
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 0.25rem 0.75rem;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+  }
+  .project-ai-box {
+    background: linear-gradient(135deg, var(--card), #FDE8F0);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.9rem 1rem;
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 1.6;
+    margin-top: auto;
+  }
+  .project-ai-box strong { color: var(--accent); font-weight: 700; }
+
+  /* ── Skills ── */
+  #skills { background: var(--bg); }
+  .skills-cloud {
+    display: flex; flex-wrap: wrap; gap: 0.75rem;
+    max-width: 800px;
+  }
+  .skill-tag {
+    font-family: 'Mulish', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 0.5rem 1.2rem;
+    border-radius: 100px;
+    border: 1.5px solid var(--border);
+    color: var(--text-muted);
+    background: var(--card);
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .skill-tag:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    transform: scale(1.04);
+  }
+  .skill-tag.featured {
+    background: var(--accent-light);
+    border-color: var(--accent-muted);
+    color: var(--accent);
+  }
+
+  /* ── Badge ── */
+  #badge {
+    background: linear-gradient(135deg, #0D2027 0%, #0A3C3A 50%, #092D28 100%);
+    position: relative; overflow: hidden;
+  }
+  #badge::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(190,24,93,0.15) 0%, transparent 60%);
+  }
+  .badge-inner {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center;
+  }
+  .badge-left {}
+  .badge-eyebrow {
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: #A3E635; margin-bottom: 1rem;
+  }
+  .badge-heading {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 600; color: #fff; margin-bottom: 1rem; line-height: 1.2;
+  }
+  .badge-cohort {
+    font-size: 0.9rem; color: rgba(255,255,255,0.65);
+    margin-bottom: 2rem; line-height: 1.7;
+  }
+  .badge-skills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .badge-skill {
+    font-size: 0.78rem; font-weight: 600;
+    padding: 0.3rem 0.9rem;
+    border-radius: 100px;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.06);
+  }
+  .badge-takeaway {
+    margin-top: 1.5rem;
+    background: rgba(163,230,53,0.08);
+    border: 1px solid rgba(163,230,53,0.25);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    font-size: 0.9rem; color: rgba(255,255,255,0.8); line-height: 1.7;
+    font-style: italic;
+  }
+  .badge-right { display: flex; justify-content: center; align-items: center; }
+  .cert-frame {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 2px rgba(255,255,255,0.1);
+    max-width: 100%;
+  }
+  .cert-frame img { width: 100%; display: block; }
+
+  /* ── Contact / Footer ── */
+  #contact {
+    background: var(--text);
+    padding: 80px 0 50px;
+  }
+  .contact-inner {
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    gap: 1.5rem;
+  }
+  .contact-heading {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 600; color: #fff;
+  }
+  .contact-sub { font-size: 1rem; color: rgba(255,255,255,0.55); max-width: 420px; }
+  .contact-links { display: flex; gap: 1.2rem; flex-wrap: wrap; justify-content: center; }
+  .contact-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    border-radius: 100px;
+    font-weight: 700; font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .contact-link.linkedin {
+    background: var(--accent); color: #fff;
+    box-shadow: 0 4px 18px rgba(190,24,93,0.35);
+  }
+  .contact-link.linkedin:hover { background: #9d1454; transform: translateY(-2px); }
+  .contact-link.email {
+    border: 1.5px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.85);
+  }
+  .contact-link.email:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+  .footer-divider {
+    width: 100%; height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 2rem 0 1.5rem;
+  }
+  .footer-copy {
+    font-size: 0.8rem; color: rgba(255,255,255,0.3);
+    font-family: 'Mulish', sans-serif;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-right { order: -1; }
+    .photo-halo { width: 280px; height: 280px; }
+    .photo-frame { width: 240px; height: 290px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .projects-grid { grid-template-columns: 1fr; }
+    .badge-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .badge-right { order: -1; }
+  }
+  @media (max-width: 600px) {
+    nav { padding: 0 4vw; }
+    .nav-links { display: none; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    section { padding: 70px 0; }
+  }
+</style>
+<meta property="og:title" content="Sophie Marchand — AI Portfolio" data-id="th-modified" ><meta name="description" content="sophie-marchand-portfolio (1)" data-id="th-modified" ><meta property="og:description" content="sophie-marchand-portfolio (1)" data-id="th-modified" ><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified" ><meta property="og:image:width" content="1501" data-id="th-modified" ><meta property="og:image:height" content="1501" data-id="th-modified" ><meta property="og:image:type" content="image/png" data-id="th-modified" ><meta property="og:url" content="https://sophie-ai-portfolio.tiiny.site/" data-id="th-modified" ><meta property="og:type" content="website" data-id="th-modified" ><script defer data-domain="sophie-ai-portfolio.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script></head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav class="fade-in fade-in-1">
+  <div class="nav-logo">Sophie Marchand</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#badge">Bootcamp</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── Hero ── -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-eyebrow fade-in fade-in-1">AI Portfolio · 2026</div>
+        <h1 class="hero-name fade-in fade-in-2">Sophie<br><em>Marchand</em></h1>
+        <p class="hero-title fade-in fade-in-3">Senior Marketing Manager</p>
+        <p class="hero-bio fade-in fade-in-4">I turn brand strategy into measurable growth — and use AI to make every hour count, at work and at home.</p>
+        <div class="hero-btns fade-in fade-in-5">
+          <a href="#projects" class="btn-primary">View My Work ↓</a>
+          <a href="https://linkedin.com/in/sophiemarchand" target="_blank" class="btn-ghost">LinkedIn →</a>
+        </div>
+      </div>
+      <div class="hero-right fade-in fade-in-3">
+        <div class="photo-halo"></div>
+        <div class="photo-frame">
+          <img src="profile.jpg" alt="Sophie Marchand">
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── About ── -->
+<section id="about">
+  <div class="container">
+    <p class="section-label fade-in">About Me</p>
+    <h2 class="section-heading fade-in">Marketing leader.<br>AI practitioner.</h2>
+    <p class="about-text fade-in">I'm a Senior Marketing Manager who believes the best campaigns are built on sharp strategy, consistent brand voice, and smart systems. Over the past year I've embedded AI into every part of my workflow — from briefing to reporting — so my team can focus on the thinking that actually moves the needle. I'm a proud graduate of the Mia AI Bootcamp 2026, where I built the tools and frameworks that now power my day-to-day.</p>
+    <div class="stats-grid">
+      <div class="stat-card fade-in">
+        <div class="stat-number">4</div>
+        <div class="stat-label">AI Projects Built</div>
+      </div>
+      <div class="stat-card fade-in">
+        <div class="stat-number">80%</div>
+        <div class="stat-label">Brief Prep Time Reduced</div>
+      </div>
+      <div class="stat-card fade-in">
+        <div class="stat-number">200+</div>
+        <div class="stat-label">Hours Saved Per Year</div>
+      </div>
+      <div class="stat-card fade-in">
+        <div class="stat-number">2026</div>
+        <div class="stat-label">Mia AI Bootcamp Graduate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Projects ── -->
+<section id="projects">
+  <div class="container">
+    <p class="section-label fade-in">Featured Projects</p>
+    <h2 class="section-heading fade-in">AI at work — and at home.</h2>
+    <div class="projects-grid">
+
+      <div class="project-card fade-in">
+        <div class="project-number">01 / Brand & Content</div>
+        <div class="project-title">AI Marketing &amp; Brand Voice Kit</div>
+        <div class="project-row">
+          <span class="project-row-label">Pain Point</span>
+          <span class="project-row-text">No consistent brand voice across channels. Every campaign brief started from scratch, producing wildly inconsistent tone and messaging.</span>
+        </div>
+        <div class="project-row">
+          <span class="project-row-label">Solution</span>
+          <span class="project-row-text">Built a Brand Voice Kit in Claude defining tone, vocabulary, and messaging pillars, plus a 7-day content workflow that generates a full week of social posts from a single campaign idea.</span>
+        </div>
+        <div class="project-tools">
+          <span class="tool-chip">Claude</span>
+          <span class="tool-chip">LinkedIn</span>
+          <span class="tool-chip">Google Sheets</span>
+        </div>
+        <div class="project-ai-box">
+          <strong>AI in Action:</strong> New copywriters onboard in half the time. A full week of on-brand content in under 30 minutes from one briefing prompt.
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-number">02 / Strategy</div>
+        <div class="project-title">Campaign Briefing Agent</div>
+        <div class="project-row">
+          <span class="project-row-label">Pain Point</span>
+          <span class="project-row-text">Writing creative briefs before agency presentations took 3–4 hours per campaign — pulling together market context, audience insights, objectives, and messaging directions.</span>
+        </div>
+        <div class="project-row">
+          <span class="project-row-label">Solution</span>
+          <span class="project-row-text">Built a Campaign Briefing Agent on Claude Projects with a custom system prompt. Raw notes from a strategy call become a full structured creative brief, ready to send.</span>
+        </div>
+        <div class="project-tools">
+          <span class="tool-chip">Claude</span>
+        </div>
+        <div class="project-ai-box">
+          <strong>AI in Action:</strong> Complete creative brief in under 5 minutes from bullet-point notes — cutting prep time by over 80% before every agency presentation.
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-number">03 / Analytics</div>
+        <div class="project-title">AI Campaign Performance Analyser</div>
+        <div class="project-row">
+          <span class="project-row-label">Pain Point</span>
+          <span class="project-row-text">Post-campaign reporting took a full day pulling data from multiple platforms — and insights were often surface-level.</span>
+        </div>
+        <div class="project-row">
+          <span class="project-row-label">Solution</span>
+          <span class="project-row-text">Built a Campaign Performance Analyser in Base44 that auto-generates structured reports from raw data exports, with highlights, underperformers, and strategic recommendations. Used NotebookLM to create audio briefings for the wider team.</span>
+        </div>
+        <div class="project-tools">
+          <span class="tool-chip">Claude</span>
+          <span class="tool-chip">Base44</span>
+          <span class="tool-chip">NotebookLM</span>
+        </div>
+        <div class="project-ai-box">
+          <strong>AI in Action:</strong> Post-campaign reports now take 45 minutes instead of a full day. Leadership gets sharper insights with a clear recommended next step every time.
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-number">04 / Life</div>
+        <div class="project-title">Family Organiser &amp; Kids Activity Tracker</div>
+        <div class="project-row">
+          <span class="project-row-label">Pain Point</span>
+          <span class="project-row-text">Drowning in WhatsApp messages across four parent groups, missing extracurricular deadlines, and forgetting permission slips and school event dates.</span>
+        </div>
+        <div class="project-row">
+          <span class="project-row-label">Solution</span>
+          <span class="project-row-text">Built a Family Organiser in Base44 that centralises school dates, activity schedules, and deadlines. Claude processes messy parent-group messages into clean calendar entries and weekly Sunday briefings.</span>
+        </div>
+        <div class="project-tools">
+          <span class="tool-chip">Claude</span>
+          <span class="tool-chip">Base44</span>
+          <span class="tool-chip">Google Calendar</span>
+        </div>
+        <div class="project-ai-box">
+          <strong>AI in Action:</strong> Not a single missed deadline since launch. Sunday evening planning down from an hour to 10 minutes.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Skills ── -->
+<section id="skills">
+  <div class="container">
+    <p class="section-label fade-in">Skills &amp; Tools</p>
+    <h2 class="section-heading fade-in">The toolkit.</h2>
+    <div class="skills-cloud fade-in">
+      <span class="skill-tag featured">Claude</span>
+      <span class="skill-tag featured">Prompt Engineering</span>
+      <span class="skill-tag featured">COSTAR Framework</span>
+      <span class="skill-tag">Base44</span>
+      <span class="skill-tag">NotebookLM</span>
+      <span class="skill-tag">Midjourney</span>
+      <span class="skill-tag">Canva AI</span>
+      <span class="skill-tag">Runway</span>
+      <span class="skill-tag">Gamma.App</span>
+      <span class="skill-tag">Artlist.io</span>
+      <span class="skill-tag">ElevenLabs</span>
+      <span class="skill-tag">Zapier</span>
+      <span class="skill-tag">Google Sheets</span>
+      <span class="skill-tag">Google Calendar</span>
+      <span class="skill-tag">LinkedIn</span>
+      <span class="skill-tag">Agentic AI</span>
+      <span class="skill-tag">7-Day Content Workflow</span>
+      <span class="skill-tag">Brand Voice Design</span>
+      <span class="skill-tag">AI for Meetings</span>
+      <span class="skill-tag">AI Inbox Management</span>
+      <span class="skill-tag">AI Leadership Strategy</span>
+      <span class="skill-tag">AI Ethics</span>
+      <span class="skill-tag">Pain Point Mapping</span>
+      <span class="skill-tag">Campaign Analytics</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Badge ── -->
+<section id="badge">
+  <div class="container">
+    <div class="badge-inner">
+      <div class="badge-left fade-in">
+        <p class="badge-eyebrow">✦ Certified Graduate</p>
+        <h2 class="badge-heading">Mia AI Bootcamp<br>May 2026 Cohort</h2>
+        <p class="badge-cohort">A two-week intensive for ambitious founders, executives, and professionals ready to lead in the age of AI. Participants explored key AI concepts and real-world use cases across business and personal workflows.</p>
+        <div class="badge-skills">
+          <span class="badge-skill">Prompt Engineering</span>
+          <span class="badge-skill">COSTAR Framework</span>
+          <span class="badge-skill">AI for Meetings</span>
+          <span class="badge-skill">AI for Inbox</span>
+          <span class="badge-skill">Brand Voice with AI</span>
+          <span class="badge-skill">Agentic AI</span>
+          <span class="badge-skill">7-Day Content Workflow</span>
+          <span class="badge-skill">Custom AI Agents</span>
+          <span class="badge-skill">AI-Powered Apps</span>
+          <span class="badge-skill">AI Leadership & Ethics</span>
+        </div>
+        <div class="badge-takeaway">
+          "I will map every repeating task in my team against an AI workflow before assigning it to a person — if AI can do 80% of it, we build the system first."
+        </div>
+      </div>
+      <div class="badge-right fade-in">
+        <div class="cert-frame">
+          <img src="certificate.jpg" alt="Mia AI Bootcamp Certificate of Participation">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ── -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner fade-in">
+      <h2 class="contact-heading">Let's connect.</h2>
+      <p class="contact-sub">Whether you're curious about my AI workflow stack or want to talk brand strategy — I'd love to hear from you.</p>
+      <div class="contact-links">
+        <a href="https://linkedin.com/in/sophiemarchand" target="_blank" class="contact-link linkedin">LinkedIn →</a>
+        <a href="mailto:sophie.marchand@example.com" class="contact-link email">sophie.marchand@example.com</a>
+      </div>
+      <div class="footer-divider"></div>
+      <p class="footer-copy">© 2026 Sophie Marchand · Built with AI, driven by strategy.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Intersection Observer for scroll-triggered fade-ins
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.animationPlayState = 'running';
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in').forEach(el => {
+    el.style.animationPlayState = 'paused';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
